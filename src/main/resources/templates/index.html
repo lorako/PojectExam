@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::nav"></header>
+<main>
+    <div class="container bg-blur rounded mt-5 ">
+        <h1>Welcome to Bobi Shop App</h1>
+        <hr class="my-3 bg-white w-50"/>
+
+        <p class="h4">
+            BOBI SHOP is a shop for COMICS Heroes!
+            All the heroes are unique, individual and  original designed by young artists.
+            <br>
+            The App offers and friendly atmosphere for all the comics lover to meet, expose their works and share views and ideas!</p>
+        <hr class="my-3 bg-white w-75"/>
+
+        <h3>
+            <a class="text-primary" th:href="@{/login}">Login</a>
+            if you have an account or
+            <a class="text-primary" th:href="@{/register}">Register</a>
+            now and check our deals.
+        </h3>
+    </div>
+
+</main>
+<footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>

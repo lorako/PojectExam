@@ -1,0 +1,134 @@
+.w-15 {
+    width: 15%;
+}
+
+.bg-gray {
+    background-color: blue-light;
+}
+
+.bg-nav{
+    background-color: rgba(1, 141, 8, 0);
+}
+
+
+body {
+    background-image: url(/img/bobiShop.png);
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    margin-bottom: 5rem;
+}
+
+my-register-div{
+
+background-image: sample.png
+}
+
+textarea {
+    resize: none;
+}
+
+footer {
+    position: static;
+    bottom: 0;
+    width: 100%;
+}
+
+.img-thumb {
+    padding: .25rem;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: .25rem;
+    max-width: 100%;
+}
+
+.bg-blur {
+    background-color: transparent; /* Fallback color */
+    background-color: transparent; /* Black w/opacity/see-through */
+    color: black;
+    font-weight: bold;
+    border: 3px solid #f1f1f1;
+    z-index: 2;
+    width: 50%;
+    padding: 20px;
+    text-align: center;
+    position:bottom;
+
+}
+
+
+.absolute {
+  position: absolute;
+  bottom: 10px;
+  width: 50%;
+  border: 3px solid #8AC007;
+}
+
+.container{
+    width: 60%
+    position: left;
+    padding: 20px;
+
+}
+.homeText{
+color: red;
+font-weight: bold;
+font-size: 70px;
+text-decoration: underline;
+align-content: center;
+
+
+}
+.artistHome{
+color: blue;
+font-weight: bold;
+font-size: 50px;
+text-decoration: underline;
+
+
+}
+.row {
+
+ width: 100%
+ position: center;
+ padding: 10px;
+}
+
+.text-stroke{
+    text-shadow:
+            0.07em 0 white,
+            0 0.07em white,
+            -0.07em 0 white,
+            0 -0.07em white;
+}
+
+.my-text-color{
+    color: yellow;
+
+}
+.hero{
+color: gray;
+image: none;
+
+}
+.hero-details{
+ width:100px; }
+
+#big-div{
+}
+
+.text-card{
+color: red;
+font-weight: bold;
+font-size: 70px;
+text-decoration: underline;
+align-content: center;
+}
+.row-H {
+  display: flex;
+}
+
+.column-H {
+  flex: 33.33%;
+  padding: 5px;
+}

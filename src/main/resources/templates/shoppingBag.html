@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::nav"></header>
+
+
+<main class="p-5 align-content-center bg-blur my-main">
+        <dir class="container my-main">
+            <h3 class="bg-blur text-dark  mb-0 mt-2">Shopping Bag</h3>
+        </dir>
+        <div class="container my-main">
+
+            <span class="row-H">
+                <span th:each="a : ${all}" th:object="${a}" >
+                  <div class="column-H">
+                        <div class="image-upload">
+                        <label for="picture">
+                            <img th:src="${a.imgUrls[0].url}" alt="cloudinary.com"/>
+                        </label>
+                        <input style="display: none" id="picture" type="file" th:name="picture"/>
+                       </div>
+                     <p class="card-text border-bottom" th:text="'Name: ' + ${a.getHeroName()}"></p>
+
+                     <p class="card-text border-bottom" th:text="'Price: ' + ${a.price}"></p>
+
+                    </div>
+                    <div class="btn-group">
+                    <a type="button" class="btn btn-sm btn-outline-secondary" th:href="@{/allHeroes/buy/{id}(id = ${a.getId()})}">Buy</a>
+                    </div>
+                    <div class="btn-group">
+                    <a type="button" class="btn btn-sm btn-outline-secondary" th:href="@{/allHeroes/like-hero/{id}(id = ${a.getId()})}">Like hero!</a>
+                    </div>
+
+               </span>
+                     <div>
+                     <small class="text-muted">Only Artist can add heroes!</small>
+
+                     <a class="nav-link text-primary active h5 text-stroke" th:href="@{/allHeroes/add}">Add hero</a>
+                     </div>
+        </div>
+        <div>
+
+            <a class="nav-link text-primary active h5 text-stroke" th:href="@{/home}">Home</a>
+        </div>
+        </div>
+        </div>
+        </div>
+    </main>
+
+
+
+<footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>

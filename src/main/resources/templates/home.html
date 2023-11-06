@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::nav"></header>
+<main class="homeText">
+    <div class="container bg-blur rounded mt-1 mb-4">
+
+        <h2 class="text-dark border-bottom" th:text="'THE MOST POPULAR HERO: ' + ${most}"></h2>
+
+        <div class="row mt-1 mb-2">
+            <div class="col-6 mt-1 mb-1">
+
+                        <a th:href="@{/allHeroes}">Heroes</a>
+                        <a th:href="@{/habitat}">Habitat</a>
+                        <a th:href="@{/weapons}">Weapons</a>
+            </div>
+
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>
