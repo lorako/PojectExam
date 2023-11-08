@@ -1,6 +1,6 @@
 package com.example.bobiShop.services.Impl;
 
-import com.example.bobiShop.models.DTOs.ShopBagDTO;;
+import com.example.bobiShop.models.DTOs.ShopBagDTO;
 import com.example.bobiShop.models.entities.ShopBagEntity;
 import com.example.bobiShop.models.entities.UserEntity;
 import com.example.bobiShop.repositories.ShopBagRepository;
@@ -8,7 +8,6 @@ import com.example.bobiShop.repositories.UserRepository;
 import com.example.bobiShop.services.ShopBagService;
 import com.example.bobiShop.session.LoggedUser;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
