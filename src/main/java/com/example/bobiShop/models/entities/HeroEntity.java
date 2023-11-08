@@ -19,16 +19,17 @@ public class HeroEntity extends BaseEntity  {
     @Length(min=3, max=15)
     private String heroName;
 
-    @OneToMany(mappedBy = "hero", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<ImageEntity> imgUrls;
+    @Column
+    private String photoUrl;
+    @Positive
+    @Column(nullable = false)
+    private BigDecimal price;
     @PastOrPresent
     private LocalDate created;
     @Column(nullable = false, unique = true)
-    @Length(min=3, max=15)
+    @Length(min=3, max=30)
     private String description;
-    @Column(nullable = false)
-    @Positive
-    private BigDecimal price;
+
    @Column
     private int likes;
 
@@ -37,6 +38,7 @@ public class HeroEntity extends BaseEntity  {
     private PowerEnum power;
     @ManyToOne
     private ArtistEntity creator;
+
 
     public PowerEnum getPower() {
         return power;
@@ -55,13 +57,15 @@ public class HeroEntity extends BaseEntity  {
     }
 
 
-    public Set<ImageEntity> getImgUrls() {
-        return imgUrls;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
-    public void setImgUrls(Set<ImageEntity> imgUrls) {
-        this.imgUrls = imgUrls;
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
+
+
 
     public LocalDate getCreated() {
         return created;

@@ -1,4 +1,4 @@
-package com.example.bobiShop.services;
+package com.example.bobiShop.services.Impl;
 
 import com.example.bobiShop.models.DTOs.LoginDTO;
 import com.example.bobiShop.models.DTOs.RegisterDTO;
@@ -7,6 +7,7 @@ import com.example.bobiShop.models.entities.UserEntity;
 import com.example.bobiShop.models.enums.RoleEnum;
 import com.example.bobiShop.repositories.ArtistRepository;
 import com.example.bobiShop.repositories.UserRepository;
+import com.example.bobiShop.services.UserService;
 import com.example.bobiShop.session.LoggedUser;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

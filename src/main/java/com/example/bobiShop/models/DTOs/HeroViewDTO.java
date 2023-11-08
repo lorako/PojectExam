@@ -2,13 +2,10 @@ package com.example.bobiShop.models.DTOs;
 
 import com.example.bobiShop.models.entities.ArtistEntity;
 import com.example.bobiShop.models.entities.HeroEntity;
-import com.example.bobiShop.models.entities.ImageEntity;
 import com.example.bobiShop.models.enums.PowerEnum;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Set;
 
 public class HeroViewDTO {
 
@@ -16,7 +13,7 @@ public class HeroViewDTO {
 
     private String heroName;
 
-    private Set<ImageEntity> imgUrls;
+    private String imgUrl;
 
     private LocalDate created;
 
@@ -30,8 +27,8 @@ public class HeroViewDTO {
 
     private ArtistEntity creator;
     public HeroViewDTO(HeroEntity hero) {
-        this.heroName = hero.getHeroName();
-        this.imgUrls = hero.getImgUrls();
+        this.heroName= hero.getHeroName();
+        this.imgUrl = hero.getPhotoUrl();
         this.created = hero.getCreated();
         this.description = hero.getDescription();
         this.price = hero.getPrice();
@@ -46,12 +43,12 @@ public class HeroViewDTO {
         return id;
     }
 
-    public Set<ImageEntity> getImgUrls() {
-        return imgUrls;
+    public String getImgUrl() {
+        return imgUrl;
     }
 
-    public void setImgUrls(Set<ImageEntity> imgUrls) {
-        this.imgUrls = imgUrls;
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public void setId(Long id) {
@@ -69,7 +66,6 @@ public class HeroViewDTO {
     public void setHeroName(String heroName) {
         this.heroName = heroName;
     }
-
 
 
     public LocalDate getCreated() {

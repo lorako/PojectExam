@@ -1,7 +1,6 @@
 package com.example.bobiShop.models.entities;
 
 
-import com.example.bobiShop.models.DTOs.Item;
 import com.example.bobiShop.models.enums.RoleEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -14,6 +13,7 @@ import java.util.List;
 @Table(name="users")
 @Entity
 public class UserEntity extends BaseEntity{
+
 
     @Column(nullable = false, unique = true)
     @Length(min=3, max=15)
@@ -31,12 +31,18 @@ public class UserEntity extends BaseEntity{
     private RoleEnum role;
     @Column(nullable = false)
     private String country;
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Item> myBoughtCollection;
-
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<ShopBagEntity> myShopBag = new ArrayList<>();
 
     public UserEntity() {
-    myBoughtCollection=new ArrayList<Item>();
+    }
+
+    public List<ShopBagEntity> getMyShopBag() {
+        return myShopBag;
+    }
+
+    public void setMyShopBag(List<ShopBagEntity> myShopBag) {
+        this.myShopBag = myShopBag;
     }
 
     public String getUsername() {
@@ -87,11 +93,5 @@ public class UserEntity extends BaseEntity{
         this.country = country;
     }
 
-    public List<Item> getMyBoughtCollection() {
-        return myBoughtCollection;
-    }
 
-    public void setMyBoughtCollection(List<Item> myBoughtCollection) {
-        this.myBoughtCollection = myBoughtCollection;
-    }
 }

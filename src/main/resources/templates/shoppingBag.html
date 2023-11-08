@@ -17,28 +17,29 @@
                   <div class="column-H">
                         <div class="image-upload">
                         <label for="picture">
-                            <img th:src="${a.imgUrls[0].url}" alt="cloudinary.com"/>
+                            <img th:src="${a.getImgUrl()}" alt="cloudinary.com"/>
                         </label>
                         <input style="display: none" id="picture" type="file" th:name="picture"/>
                        </div>
-                     <p class="card-text border-bottom" th:text="'Name: ' + ${a.getHeroName()}"></p>
+                     <p class="card-text border-bottom" th:text="'Name: ' + ${a.getItemName()}"></p>
 
                      <p class="card-text border-bottom" th:text="'Price: ' + ${a.price}"></p>
 
                     </div>
-                    <div class="btn-group">
-                    <a type="button" class="btn btn-sm btn-outline-secondary" th:href="@{/allHeroes/buy/{id}(id = ${a.getId()})}">Buy</a>
-                    </div>
-                    <div class="btn-group">
-                    <a type="button" class="btn btn-sm btn-outline-secondary" th:href="@{/allHeroes/like-hero/{id}(id = ${a.getId()})}">Like hero!</a>
-                    </div>
 
                </span>
                      <div>
-                     <small class="text-muted">Only Artist can add heroes!</small>
+                    <div class="btn-group">
+                    <a type="button" class="btn btn-sm btn-outline-secondary" th:text="'Total price: ' + ${totalPrice}"></a>
+                    </div>
+                     <small class="text-muted">If you buy 3 items you get 20% discount!</small>
+                     <div class="btn-group">
+                    <a type="button" class="btn btn-sm btn-outline-secondary text dark" th:text="'Discount price: ' + ${discountPrice}"></a>
+                    </div>
 
-                     <a class="nav-link text-primary active h5 text-stroke" th:href="@{/allHeroes/add}">Add hero</a>
+                     <a class="nav-link text-primary active h5 text-Bold" th:href="@{/shoppingBag/pay}">Pay</a>
                      </div>
+
         </div>
         <div>
 

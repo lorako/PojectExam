@@ -7,9 +7,9 @@ import org.hibernate.validator.constraints.Length;
 @Table(name="habitats")
 @Entity
 public class HabitatEntity extends BaseEntity{
-    @Column(nullable = false, unique = true)
+
     @Length(min=3, max=10)
-    private String name;
+    private String habitatName;
     @Column(columnDefinition = "TEXT")
     private String description;
 
@@ -20,12 +20,13 @@ public class HabitatEntity extends BaseEntity{
     @ManyToOne
     private ArtistEntity creator;
 
+
     public String getName() {
-        return name;
+        return habitatName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String habitatName) {
+        this.habitatName =habitatName;
     }
 
     public String getDescription() {

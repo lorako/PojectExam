@@ -10,6 +10,7 @@ import java.util.List;
 @Entity
 @Table(name="artists")
 public class ArtistEntity extends BaseEntity{
+
     @Column(nullable = false, unique = true)
     @Length(min=3, max=15)
     private String username;
