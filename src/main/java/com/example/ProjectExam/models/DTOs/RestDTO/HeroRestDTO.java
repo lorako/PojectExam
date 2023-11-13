@@ -1,6 +1,7 @@
-package com.example.ProjectExam.models.DTOs;
+package com.example.ProjectExam.models.DTOs.RestDTO;
 
 import com.example.ProjectExam.models.enums.PowerEnum;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -11,7 +12,7 @@ public class HeroRestDTO {
 
     private String heroName;
 
-
+    private String imgUrl;
 
     private LocalDate created;
 
@@ -37,8 +38,17 @@ public class HeroRestDTO {
         return this;
     }
 
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
     public HeroRestDTO() {
     }
+
 
     public String getHeroName() {
         return heroName;

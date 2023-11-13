@@ -24,8 +24,8 @@ public class AddHeroDTO {
     @NotNull(message = "Release date cannot be in the future")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate created;
-    @Size(min=3, max=15)
-    @NotNull(message = "Description must be between 3 and 15 characters!")
+    @Size(min=3, max=30)
+    @NotNull(message = "Description must be between 3 and 30 characters!")
     private String description;
 
     @Positive(message = "Price must be  a positive number")

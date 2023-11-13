@@ -1,7 +1,7 @@
 package com.example.ProjectExam.services.Impl;
 
 import com.example.ProjectExam.models.DTOs.AddHeroDTO;
-import com.example.ProjectExam.models.DTOs.HeroRestDTO;
+import com.example.ProjectExam.models.DTOs.RestDTO.HeroRestDTO;
 import com.example.ProjectExam.models.DTOs.HeroViewDTO;
 
 import com.example.ProjectExam.models.entities.*;
@@ -149,7 +149,20 @@ public class HeroServiceImpl implements HeroService {
                 .map(this::map).toList();
         }
 
-        private HeroRestDTO map(HeroEntity hero){
+        @Override
+        public Optional<HeroRestDTO> findHeroById(Long id) {
+            Optional<HeroEntity> byId = heroRepository.findById(id);
+            return  byId.map(this::map);
+
+       }
+
+    @Override
+    public void deleteById(Long id) {
+        heroRepository.deleteById(id);
+    }
+
+
+    private HeroRestDTO map(HeroEntity hero){
         HeroRestDTO heroRestDTO=new HeroRestDTO();
         heroRestDTO.setId(hero.getId());
         heroRestDTO.setCreated(hero.getCreated());
@@ -157,6 +170,7 @@ public class HeroServiceImpl implements HeroService {
         heroRestDTO.setDescription(hero.getDescription());
         heroRestDTO.setHeroName(hero.getHeroName());
         heroRestDTO.setPower(hero.getPower());
+        heroRestDTO.setImgUrl(hero.getPhotoUrl());
         heroRestDTO.setPrice(hero.getPrice());
         heroRestDTO.setLikes(hero.getLikes());
         return heroRestDTO;
@@ -180,6 +194,7 @@ public class HeroServiceImpl implements HeroService {
       }
 
     }
+
 
 
 }

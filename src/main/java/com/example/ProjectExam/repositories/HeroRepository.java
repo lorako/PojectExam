@@ -1,7 +1,5 @@
 package com.example.ProjectExam.repositories;
 
-import com.example.ProjectExam.models.DTOs.HeroRestDTO;
-import com.example.ProjectExam.models.DTOs.HeroViewDTO;
 import com.example.ProjectExam.models.entities.HeroEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
