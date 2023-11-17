@@ -1,5 +1,6 @@
 package com.example.ProjectExam.models.entities;
 
+import com.example.ProjectExam.models.DTOs.RestDTO.AddHeroRestDTO;
 import com.example.ProjectExam.models.enums.PowerEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.PastOrPresent;
@@ -39,6 +40,7 @@ public class HeroEntity extends BaseEntity  {
 
 
     public PowerEnum getPower() {
+
         return power;
     }
 

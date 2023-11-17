@@ -22,13 +22,12 @@ public class ArtistEntity extends BaseEntity{
     private List<HeroEntity> heroesList;
     @OneToMany(fetch = FetchType.EAGER )
     private List<WeaponEntity> weaponsList;
-    @OneToMany(fetch = FetchType.EAGER )
-    private List<HabitatEntity> habitatList;
+
 
     public ArtistEntity() {
         heroesList=new ArrayList<>();
         weaponsList=new ArrayList<>();
-        habitatList=new ArrayList<>();
+
     }
 
     public String getUsername() {
@@ -65,12 +64,5 @@ public class ArtistEntity extends BaseEntity{
         this.weaponsList = weaponsList;
     }
 
-    public List<HabitatEntity> getHabitatList() {
-        return habitatList;
-    }
 
-
-    public void setHabitatList(List<HabitatEntity> habitatList) {
-        this.habitatList = habitatList;
-    }
 }

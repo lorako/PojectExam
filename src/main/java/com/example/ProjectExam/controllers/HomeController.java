@@ -21,7 +21,7 @@ public class HomeController {
        model.addObject("most", this.heroService.getTheMost());
        return model;
     }
-    @GetMapping("/")
+    @GetMapping("/index")
     public ModelAndView index(){
         return new ModelAndView("index");
     }

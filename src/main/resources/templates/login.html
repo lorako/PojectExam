@@ -9,45 +9,44 @@
     <div class="d-flex justify-content-center">
 
         <div class="row g-3 align-items-center">
-            <form class="nav-link" th:href="@{/login}"
-                  th:method="post"
-                  th:object="${loginDTO}">
+            <form class="nav-link"
+                  th:action="@{/login}"
+                  th:method="post">
 
-                <h5 th:if="${hasError}" class="text-center text form-text bg-danger rounded">User doesn't exists</h5>
+
                 <div>
                     <div class="col-auto">
-                        <label for="inputUsername" class="col-form-label text">Username</label>
+                        <label for="username" class="col-form-label text">Username</label>
+                        <input name="username"
+                               id="username"
+                               th:value="${username}"
+                               type="text"
+                               class="form-control"
+                               placeholder="username">
                     </div>
-                    <div class="col-auto">
-                        <input type="text"
-                               th:field="*{username}"
-                               th:errorclass="bg-danger"
-                               id="inputUsername" class="form-control"
-                               aria-describedby="usernameHelpInline">
-                    </div>
-                    <div class="col-auto">
-                        <small  th:if="${#fields.hasErrors('username')}"
-                                th:errors="*{username}" id="usernameError" class="text form-text bg-danger rounded">Length must between 3
-                            and 20 characters</small>
-                    </div>
+
                 </div>
                 <div>
                     <div class="col-auto">
-                        <label for="inputPassword" class="col-form-label text">Password</label>
+                        <label for="password" class="col-form-label text">Password</label>
+                        <input name="password"
+                               id="password"
+                               th:value="${password}"
+                               type="password"
+                               class="form-control"
+                               placeholder="password">
                     </div>
-                    <div class="col-auto">
-                        <input type="password"
-                               th:field="*{password}"
-                               th:errorclass="bg-danger"
-                               id="inputPassword" class="form-control"
-                               aria-describedby="passwordHelpInline">
-                    </div>
-                    <div class="col-auto">
-                        <small  th:if="${#fields.hasErrors('password')}"
-                                th:errors="*{password}" id="passwordError" class="text form-text bg-danger rounded">Length must between 5
-                            and 20 characters</small>
-                    </div>
+
                 </div>
+                <div class="col-auto">
+                    <label for="rememberme" class="col-form-label text">Remember me!</label>
+                    <input name="rememberme"
+                           id="rememberme"
+                           type="checkbox"
+                    class="form-control">
+                </div>
+                <div th:if="${hasError}" class="text-center text bg-danger">User doesn't exists</div>
+
                 <div class="d-flex justify-content-center mt-2">
                     <button class="btn btn-primary btn-block w-50" type="submit">Login</button>
                 </div>

@@ -6,9 +6,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Positive;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Table(name="users")
 @Entity
@@ -27,7 +29,6 @@ public class UserEntity extends BaseEntity{
     @Positive
     private int age;
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private RoleEnum role;
     @Column(nullable = false)
     private String country;
@@ -35,6 +36,13 @@ public class UserEntity extends BaseEntity{
     private List<ShopBagEntity> myShopBag = new ArrayList<>();
 
     public UserEntity() {
+    }
+
+    public RoleEnum getRole() {
+        return role;
+    }
+    public void setRole(RoleEnum role) {
+        this.role = role;
     }
 
     public List<ShopBagEntity> getMyShopBag() {
@@ -49,17 +57,11 @@ public class UserEntity extends BaseEntity{
         return username;
     }
 
-    public RoleEnum getRole() {
-        return role;
-    }
-
-    public void setRole(RoleEnum role) {
-        this.role = role;
-    }
 
     public void setUsername(String username) {
         this.username = username;
     }
+
 
     public String getEmail() {
         return email;

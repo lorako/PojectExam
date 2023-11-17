@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/commons::head"></head>
 <body>
@@ -13,9 +14,9 @@
             <span class="row-H">
                 <span th:each="a : ${allH}" th:object="${a}" >
                   <div class="column-H">
-                        <div class="image-upload">
+                        <div class="image-upload borded">
                         <label for="picture">
-                            <img th:src="${a.imgUrl}" alt="cloudinary.com"/>
+                            <img  th:src="${a.imgUrl}" alt="cloudinary.com"/>
                         </label>
                         <input style="display: none" id="picture" type="file" th:name="picture"/>
                        </div>
@@ -36,16 +37,13 @@
                     </div>
 
                </span>
-                     <div>
-                     <small class="text-muted">Only Artist can add heroes!</small>
 
-                     <a class="nav-link text-primary active h5 text-stroke" th:href="@{/allHeroes/add}">Add hero</a>
-                     </div>
-            </div>
-    <div>
 
-        <a class="nav-link text-primary active h5 text-stroke" th:href="@{/home}">Home</a>
-    </div>
+              <div>
+                     <a sec:authorize="hasRole('Artist')" class="nav-link text-primary active h5 text-stroke" th:href="@{/allHeroes/add}">Add hero</a>
+
+             </div>
+
         </div>
     </div>
 </div>

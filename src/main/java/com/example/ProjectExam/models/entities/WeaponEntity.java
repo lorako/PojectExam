@@ -3,6 +3,9 @@ package com.example.ProjectExam.models.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
 import org.hibernate.validator.constraints.Length;
+
+import java.math.BigDecimal;
+
 @Table(name="weapons")
 @Entity
 public class WeaponEntity extends BaseEntity{
@@ -11,9 +14,7 @@ public class WeaponEntity extends BaseEntity{
     private String weaponName;
     @Positive
     @Column(nullable = false)
-    private String price;
-    @Column(columnDefinition = "TEXT")
-    private String description;
+    private BigDecimal price;
     @Column(nullable = false)
     private String imgUrl;
     @ManyToOne
@@ -27,20 +28,12 @@ public class WeaponEntity extends BaseEntity{
         this.weaponName = weaponName;
     }
 
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getImgUrl() {

@@ -5,7 +5,38 @@
 <body>
 <header th:replace="fragments/commons::nav"></header>
 <main>
+    <dir class="container my-main">
+        <h3 class="bg-blur text-dark  mb-0 mt-2">WEAPONS</h3>
+    </dir>
+    <div class="container my-main">
 
+            <span class="row-H">
+                <span th:each="a : ${all}" th:object="${a}" >
+                  <div class="column-H">
+                        <div class="image-upload borded">
+                        <label for="picture">
+                            <img  th:src="${a.imgUrl}" alt="cloudinary.com"/>
+                        </label>
+                        <input style="display: none" id="picture" type="file" th:name="picture"/>
+                       </div>
+                     <p class="card-text border-bottom" th:text="'Name: ' + ${a.getHeroName()}"></p>
+                     <p class="card-text border-bottom" th:text="'Creator: ' + ${a.getCreator().getUsername()}"></p>
+                     <p class="card-text border-bottom" th:text="'Price: ' + ${a.price}"></p>
+                    </div>
+                    <div class="btn-group">
+                    <a type="button" class="btn btn-sm btn-outline-secondary" th:href="@{/weapons/buy/{id}(id = ${a.getId()})}">BUY IT!</a>
+                    </div>
+
+               </span>
+
+              <div>
+              <a sec:authorize="hasRole('Artist')" class="nav-link text-primary active h5 text-stroke" th:href="@{/weapons/add}">Add Weapon</a>
+
+             </div>
+
+    </div>
+    </div>
+    </div>
 
 
 

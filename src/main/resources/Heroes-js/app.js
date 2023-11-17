@@ -1,5 +1,6 @@
 
 
+
 let reloadHeroesButton = document.getElementById('reloadHeroes');
 reloadHeroesButton.addEventListener('click', reloadHeroes)
 
@@ -10,7 +11,9 @@ function reloadHeroes() {
   let heroContainer = document.getElementById('hero-container');
   heroContainer.innerHTML = ''
 
-  fetch('http://localhost:8080/api/heroes')
+  fetch('http://localhost:8080/api/heroes',{
+  mode: 'cors'
+  })
     .then(response => response.json())
     .then(json => json.forEach(hero => {
 
@@ -66,7 +69,12 @@ function deleteBtnClicked(event) {
     method: 'DELETE'
   }
 
-  fetch(`http://localhost:8080/api/heroes/${heroId}`, requestOptions)
+  fetch(`http://localhost:8080/api/heroes/${heroId}`, requestOptions,{
+  mode: 'cors'
+
+  })
     .then(_ => reloadHeroes())
     .catch(error => console.log('error', error))
+
+
 }

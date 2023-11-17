@@ -13,7 +13,7 @@ public interface HeroRepository extends JpaRepository<HeroEntity,Long> {
     @Query(nativeQuery = true, value = "SELECT * FROM heroes")
     List<HeroEntity> getAll();
 
-
+    List<HeroEntity> findAllHeroesByCreatorId(Long id);
     Optional<HeroEntity> findByHeroName(String newHeroName);
 
 

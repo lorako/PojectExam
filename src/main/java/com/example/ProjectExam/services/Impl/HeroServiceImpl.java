@@ -1,6 +1,7 @@
 package com.example.ProjectExam.services.Impl;
 
 import com.example.ProjectExam.models.DTOs.AddHeroDTO;
+import com.example.ProjectExam.models.DTOs.RestDTO.AddHeroRestDTO;
 import com.example.ProjectExam.models.DTOs.RestDTO.HeroRestDTO;
 import com.example.ProjectExam.models.DTOs.HeroViewDTO;
 
@@ -11,7 +12,6 @@ import com.example.ProjectExam.repositories.ShopBagRepository;
 import com.example.ProjectExam.repositories.UserRepository;
 import com.example.ProjectExam.services.HeroService;
 import com.example.ProjectExam.services.ImageCloudService;
-import com.example.ProjectExam.session.LoggedUser;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,16 +24,16 @@ public class HeroServiceImpl implements HeroService {
     private final UserRepository userRepository;
     private final ShopBagRepository shopBagRepository;
     private final ArtistRepository artistRepository;
-    private final LoggedUser loggedUser;
     private final HeroRepository heroRepository;
 
     private final ImageCloudService imageCloudService;
 
-    public HeroServiceImpl(UserRepository userRepository, ShopBagRepository shopBagRepository, ArtistRepository artistRepository, LoggedUser loggedUser, HeroRepository heroRepository, ImageCloudService imageCloudService) {
+    public HeroServiceImpl(UserRepository userRepository, ShopBagRepository shopBagRepository,
+                           ArtistRepository artistRepository,HeroRepository heroRepository, ImageCloudService imageCloudService) {
         this.userRepository = userRepository;
         this.shopBagRepository = shopBagRepository;
         this.artistRepository = artistRepository;
-        this.loggedUser = loggedUser;
+
         this.heroRepository = heroRepository;
         this.imageCloudService = imageCloudService;
     }
@@ -42,36 +42,33 @@ public class HeroServiceImpl implements HeroService {
 
     @Override
     public void addHero(AddHeroDTO addHeroDTO,
-                        MultipartFile imageFile) {
+                        MultipartFile imageFile, String username) {
 
-        UserEntity user = userRepository.findByUsername(loggedUser.getUsername());
-        ArtistEntity artist = artistRepository.findByUsername(user.getUsername());
-        List<HeroEntity> artistList=artist.getHeroesList();
-        if(artistList.isEmpty()){
-            artistList=new ArrayList<>();
-        }
+        Optional<UserEntity> user = userRepository.findByUsername(username);
 
         HeroEntity hero = new HeroEntity();
-        hero.setCreated(addHeroDTO.getCreated());
+
 
          String newHeroName=addHeroDTO.getHeroName();
-        Optional<HeroEntity> oneHero = heroRepository.findByHeroName(newHeroName);
-        if(oneHero.isPresent()){
+         Optional<HeroEntity> oneHero = heroRepository.findByHeroName(newHeroName);
+         if(oneHero.isPresent()){
             return;
-        }
+         }
+
+        Optional<ArtistEntity> artist = artistRepository.findByUsername(user.get().getUsername());
         hero.setHeroName(addHeroDTO.getHeroName());
         hero.setDescription(addHeroDTO.getDescription());
         hero.setPrice(addHeroDTO.getPrice());
         hero.setPower(addHeroDTO.getPower());
-        hero.setCreator(artist);
+        hero.setCreator(artist.get());
+        hero.setCreated(addHeroDTO.getCreated());
 
         String pictureUrl=imageCloudService.saveImage(imageFile);
         hero.setPhotoUrl(pictureUrl);
-        artistList.add(hero);
-        artist.setHeroesList(artistList);
+
 
         this.heroRepository.save(hero);
-        this.artistRepository.save(artist);
+
         }
 
 
@@ -86,17 +83,17 @@ public class HeroServiceImpl implements HeroService {
     }
 
     @Override
-    public void likeHeroWithId(Long id, String loggedUserName) {
+    public void likeHeroWithId(Long id, String username) {
 
 
-        String user=userRepository.findByUsername(loggedUserName).getUsername();
+        String user=userRepository.findByUsername(username).get().getUsername();
 
         HeroEntity hero=heroRepository.findById(id).orElse(null);
-        final String username = hero.getCreator().getUsername();
+        String usernameNoCreator = hero.getCreator().getUsername();
 
         String  creatorHero=hero.getCreator().getUsername();
 
-      if(!username.equals(user)){
+      if(!usernameNoCreator.equals(user)){
           int likes=hero.getLikes();
 
           hero.setLikes(likes+=1);
@@ -108,16 +105,17 @@ public class HeroServiceImpl implements HeroService {
     }
 
     @Override
-    public void buyHero(Long id) {
-
-           String loggedUserName= loggedUser.getUsername();
-
-          UserEntity user= userRepository.findByUsername(loggedUserName);
+    public void buyHero(Long id, String username) {
 
 
-            List<ShopBagEntity> myBoughtCollection = user.getMyShopBag();
+
+          Optional<UserEntity> user= userRepository.findByUsername(username);
+
+
+            List<ShopBagEntity> myBoughtCollection = user.get().getMyShopBag();
 
             HeroEntity hero = heroRepository.findById(id).orElse(null);
+
 
 
             if( hero != null) {
@@ -126,14 +124,15 @@ public class HeroServiceImpl implements HeroService {
                 item.setImgUrl(hero.getPhotoUrl());
                 item.setItemName(hero.getHeroName());
                 item.setPrice(hero.getPrice());
-                item.setBuyer(user);
+                item.setBuyer(user.get());
                 shopBagRepository.save(item);
 
                 myBoughtCollection.add(item);
 
-                userRepository.save(user);
+                userRepository.save(user.get());
 
                 Long heroId = hero.getId();
+
 
                 heroRepository.deleteById(heroId);
 
@@ -159,6 +158,26 @@ public class HeroServiceImpl implements HeroService {
     @Override
     public void deleteById(Long id) {
         heroRepository.deleteById(id);
+    }
+
+    @Override
+    public void addRestHero(AddHeroRestDTO addHeroRestDTO) {
+
+       HeroEntity heroRest=new HeroEntity();
+        heroRest.setId(addHeroRestDTO.getId());
+        heroRest.setCreator(addHeroRestDTO.getCreator());
+        heroRest.setCreated(addHeroRestDTO.getCreated());
+        heroRest.setDescription(addHeroRestDTO.getDescription());
+        heroRest.setHeroName(addHeroRestDTO.getHeroName());
+        heroRest.setLikes(addHeroRestDTO.getLikes());
+        heroRest.setPower(addHeroRestDTO.getPower());
+        heroRest.setPrice(addHeroRestDTO.getPrice());
+        heroRest.setPhotoUrl(addHeroRestDTO.getImgUrl().getOriginalFilename());
+
+
+        heroRepository.save(heroRest);
+
+
     }
 
 

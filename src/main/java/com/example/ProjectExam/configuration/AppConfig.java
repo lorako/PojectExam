@@ -12,10 +12,7 @@ import java.time.format.DateTimeFormatter;
 @Configuration
 public class AppConfig {
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+
 
     @Bean
     public ModelMapper modelMapper(){

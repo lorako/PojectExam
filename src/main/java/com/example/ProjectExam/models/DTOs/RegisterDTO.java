@@ -1,7 +1,7 @@
 package com.example.ProjectExam.models.DTOs;
 
-import com.example.ProjectExam.models.enums.RoleEnum;
 import jakarta.validation.constraints.*;
+
 
 public class RegisterDTO {
     @NotEmpty(message = "Username must be between 3 and 15 characters!" )
@@ -19,15 +19,15 @@ public class RegisterDTO {
     private int age;
 
     @NotNull(message = "You must select a role")
-    private RoleEnum role;
+    private String role;
     @NotEmpty
     private String country;
 
-    public RoleEnum getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(RoleEnum role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

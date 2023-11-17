@@ -6,13 +6,14 @@ import com.example.ProjectExam.models.entities.UserEntity;
 import com.example.ProjectExam.repositories.ShopBagRepository;
 import com.example.ProjectExam.repositories.UserRepository;
 import com.example.ProjectExam.services.ShopBagService;
-import com.example.ProjectExam.session.LoggedUser;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,57 +22,68 @@ public class ShopBagServiceImpl implements ShopBagService {
     private final UserRepository userRepository;
 
     private final ShopBagRepository shopBagRepository;
-    private final LoggedUser loggedUser;
 
-    public ShopBagServiceImpl(UserRepository userRepository, ShopBagRepository shopBagRepository, LoggedUser loggedUser) {
+    public ShopBagServiceImpl(UserRepository userRepository, ShopBagRepository shopBagRepository) {
         this.userRepository = userRepository;
         this.shopBagRepository = shopBagRepository;
-        this.loggedUser = loggedUser;
     }
 
 
     @Override
-    public List<ShopBagDTO> getAll() {
+    public List<ShopBagDTO> getAll(String username) {
 
-        UserEntity userBuyer = userRepository.findByUsername(loggedUser.getUsername());
-         return userBuyer.getMyShopBag()
+        Optional<UserEntity> userBuyer = userRepository.findByUsername(username);
+
+
+
+         return userBuyer.get().getMyShopBag()
                 .stream()
-                .map(ShopBagDTO::new).collect(Collectors.toList());
-
+                .map(ShopBagDTO::new)
+                 .collect(Collectors.toList());
 
     }
 
     @Override
-    public void pay() {
+    public void pay(String username) {
 
-        UserEntity userBuyer = userRepository.findByUsername(loggedUser.getUsername());
+        Optional<UserEntity> userBuyer = userRepository.findByUsername(username);
 
-        userBuyer.setMyShopBag(new ArrayList<>());
-        userRepository.save(userBuyer);
+        userBuyer.get().setMyShopBag(new ArrayList<>());
+
+        userRepository.save(userBuyer.get());
 
         shopBagRepository.deleteAll();
 
     }
 
-
     @Override
-    public BigDecimal total(){
+    public BigDecimal total(String username){
+
         BigDecimal totalBuy = BigDecimal.valueOf(0);
 
-        UserEntity userBuyer= userRepository.findByUsername(loggedUser.getUsername());
-        List<ShopBagEntity> myBoughtCollections = userBuyer.getMyShopBag();
-        if(!myBoughtCollections.isEmpty()){
+        Optional<UserEntity> userBuyer= userRepository.findByUsername(username);
 
-         for (ShopBagEntity item :myBoughtCollections) totalBuy = totalBuy.add(item.getPrice());
+        if(userBuyer.isPresent()) {
 
-         }
+            List<ShopBagEntity> myBoughtCollections = userBuyer.get().getMyShopBag();
 
-       return totalBuy;
+            if (!myBoughtCollections.isEmpty()) {
+
+                for (ShopBagEntity item : myBoughtCollections) totalBuy = totalBuy.add(item.getPrice());
+
+            }
+            return totalBuy;
+        }else{
+            return null;
+        }
+
     }
 
-    public BigDecimal discountPrice(BigDecimal total) {
-        UserEntity userBuyer= userRepository.findByUsername(loggedUser.getUsername());
-        List<ShopBagEntity> myBoughtCollections = userBuyer.getMyShopBag();
+    public BigDecimal discountPrice(BigDecimal total, String username) {
+
+        Optional<UserEntity> userBuyer= userRepository.findByUsername(username);
+
+        List<ShopBagEntity> myBoughtCollections = userBuyer.get().getMyShopBag();
 
 
         if(myBoughtCollections.size()>=3){

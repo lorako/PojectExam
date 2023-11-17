@@ -3,7 +3,6 @@ package com.example.ProjectExam.controllers;
 import com.example.ProjectExam.models.DTOs.AddHeroDTO;
 import com.example.ProjectExam.models.DTOs.HeroViewDTO;
 import com.example.ProjectExam.services.HeroService;
-import com.example.ProjectExam.session.LoggedUser;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -11,18 +10,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
 public class HeroesController {
 
     private final HeroService heroService;
-    private final LoggedUser loggedUser;
 
 
-    public HeroesController(HeroService heroService, LoggedUser loggedUser) {
+
+    public HeroesController(HeroService heroService) {
         this.heroService = heroService;
-        this.loggedUser = loggedUser;
     }
 
 
@@ -37,17 +36,21 @@ public class HeroesController {
 
     }
     @GetMapping("/allHeroes/like-hero/{id}")
-    public String likeHero(@PathVariable Long id) {
-        String loggedUserName=loggedUser.getUsername();
-        heroService.likeHeroWithId(id, loggedUserName);
+    public String likeHero(@PathVariable Long id, Principal principal) {
+
+        String username= principal.getName();
+
+        heroService.likeHeroWithId(id, username);
         return "redirect:/allHeroes";
     }
 
    @GetMapping("/allHeroes/buy/{id}")
-   public String buyHero(@PathVariable Long id){
+   public String buyHero(@PathVariable Long id, Principal principal){
+
+        String username= principal.getName();
 
 
-        heroService.buyHero(id);
+        heroService.buyHero(id, username);
 
        return ("redirect:/shoppingBag");
    }
@@ -58,15 +61,13 @@ public class HeroesController {
 
     @PostMapping("/allHeroes/add")
     public ModelAndView addHeroes(@ModelAttribute("addHeroDTO") @Valid AddHeroDTO addHeroDTO,
-                                  BindingResult bindingResult, MultipartFile multipartFile){
+                                  BindingResult bindingResult, MultipartFile multipartFile, Principal principal){
+        String username= principal.getName();
 
-        if (!loggedUser.isLogged()) {
-            return new ModelAndView("redirect:/index");
-        }
         if(bindingResult.hasErrors()){
             return new ModelAndView("heroAdd");
         }
-        this.heroService.addHero(addHeroDTO,addHeroDTO.getImgUrl());
+        this.heroService.addHero(addHeroDTO,addHeroDTO.getImgUrl(),username);
 
         return new ModelAndView("redirect:/allHeroes");
 

@@ -2,7 +2,7 @@ spring:
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
         format_sql: always
     hibernate:
       ddl-auto: update
@@ -21,17 +21,18 @@ spring:
     password: ${db_password}
     username: ${db_username}
     url: jdbc:mysql://localhost:3306/bobiShop?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+
 logging:
   level:
-    org:
-      hibernate:
-        type:
-          descriptor: TRACE
-        SQL: DEBUG
-      nodeValue: WARN
-    blog: WARN
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: DEBUG
+
+
 server:
   port: 8080
 
+projectExam:
+    default.admin.pass: ${DEFAULT_ADMIN_PASS:123}
+    remember.me.key: ${REMEMBER_ME_KEY:123}
 
 

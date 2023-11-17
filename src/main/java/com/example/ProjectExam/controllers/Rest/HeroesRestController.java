@@ -1,5 +1,6 @@
 package com.example.ProjectExam.controllers.Rest;
 
+import com.example.ProjectExam.models.DTOs.RestDTO.AddHeroRestDTO;
 import com.example.ProjectExam.models.DTOs.RestDTO.HeroRestDTO;
 import com.example.ProjectExam.services.HeroService;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,7 @@ public class HeroesRestController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<HeroRestDTO> deleteById(@PathVariable("id") Long id){
+
         heroService.deleteById(id);
 
         return
@@ -40,6 +42,11 @@ public class HeroesRestController {
 
         return heroRestDTOOptional
                 .map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+
+    }
+    @PostMapping("/{id}")
+    public void addHero(AddHeroRestDTO addHeroRestDTO){
+        heroService.addRestHero(addHeroRestDTO);
 
     }
 }

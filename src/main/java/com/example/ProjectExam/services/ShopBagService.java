@@ -7,21 +7,10 @@ import java.util.List;
 
 public interface ShopBagService {
 
+    List<ShopBagDTO> getAll(String username);
 
+    void pay(String username);
+    BigDecimal discountPrice(BigDecimal total,String username);
 
-
-
-
-    BigDecimal total();
-
-    List<ShopBagDTO> getAll();
-
-
-    void pay();
-
-
-
-
-
-    BigDecimal discountPrice(BigDecimal total);
+    BigDecimal total(String username);
 }

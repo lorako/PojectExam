@@ -1,31 +1,32 @@
 package com.example.ProjectExam.services.Impl;
 
-import com.example.ProjectExam.models.DTOs.LoginDTO;
+
 import com.example.ProjectExam.models.DTOs.RegisterDTO;
 import com.example.ProjectExam.models.entities.ArtistEntity;
-import com.example.ProjectExam.models.entities.UserEntity;
+import com.example.ProjectExam.models.entities.UserEntity;;
 import com.example.ProjectExam.models.enums.RoleEnum;
 import com.example.ProjectExam.repositories.ArtistRepository;
 import com.example.ProjectExam.repositories.UserRepository;
 import com.example.ProjectExam.services.UserService;
-import com.example.ProjectExam.session.LoggedUser;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+import static com.example.ProjectExam.models.enums.RoleEnum.*;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-
-    private final LoggedUser loggedUser;
-
     private final ArtistRepository artistRepository;
 
-    public UserServiceImpl(PasswordEncoder passwordEncoder, UserRepository userRepository, LoggedUser loggedUser, ArtistRepository artistRepository) {
+    public UserServiceImpl(PasswordEncoder passwordEncoder, UserRepository userRepository,
+                           ArtistRepository artistRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
-        this.loggedUser = loggedUser;
         this.artistRepository = artistRepository;
     }
 
@@ -47,12 +48,28 @@ public class UserServiceImpl implements UserService {
         if(registerDTO.getAge() >0 ){
             user.setAge(registerDTO.getAge());
         }
-        RoleEnum role=registerDTO.getRole();
+
+        String  rolenew= registerDTO.getRole();
+
+        RoleEnum role = switch (rolenew) {
+            case "Admin" -> Admin;
+            case "Artist" -> Artist;
+            case "User"-> User;
+
+            default -> throw new IllegalStateException("Unexpected value: " + rolenew);
+        };
+
         user.setRole(role);
-        if (role.toString() == "Artist"){
+
+
+
+
+
+        if ("Artist" == role.name()){
             ArtistEntity artist=new ArtistEntity();
             artist.setUsername(registerDTO.getUsername());
             artist.setEmail(registerDTO.getEmail());
+
             artistRepository.save(artist);
         }
 
@@ -62,20 +79,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean login(LoginDTO loginDTO) {
-        String username= loginDTO.getUsername();
-
-        UserEntity user=userRepository.findByUsername(username);
-        if(user != null && passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())){
-            loggedUser.setUsername(username);
-            loggedUser.setLogged(true);
-            return true;
-        }
-        return false;
+    public Optional<UserEntity> findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
-    @Override
-    public void logout() {
-        loggedUser.logout();
 
-    }
 }

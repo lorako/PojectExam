@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html  lang="en" xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
        xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>BobiShop App</title>
     <link rel="stylesheet" href="/css/reset-css.css"/>
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
@@ -12,30 +14,47 @@
 <body>
 <header>
     <nav class="navbar navbar-expand-lg bg-nav rounded">
-        <a th:if="${@loggedUser.isLogged}"  class="nav-link text-primary active h5 text-stroke" th:href="@{/artists}">Artists</a>
-        <a
+        <a sec:authorize= "isAuthenticated()" class="nav-link text-primary active h5 text-stroke" th:href="@{/artists}">Artists</a>
+        <a sec:authorize= "isAuthenticated()"
            th:href="@{/contacts}"
            class="nav-link text-primary active h5 text-stroke">Contact us</a>
 
         <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
             <ul class="navbar-nav row">
                 <li class="nav-item col-md-4">
-                    <span class="nav-link text-primary active h5 text-stroke" th:text="'Hello, ' + ${@loggedUser.username}+ '!'"></span>
+                    <span class="nav-link text-primary active h5 text-stroke"> Hello,
+                        <th:block sec:authorize= "isAuthenticated()">
+                            <th:block sec:authentication="name"></th:block>
+                        </th:block>
+                         <th:block sec:authorize= "!isAuthenticated()">
+                             Anonymous!
+                         </th:block>
+                    </span>
 
                 </li>
-                <li th:unless="${@loggedUser.isLogged}" class="nav-item col-md-4">
+                <li sec:authorize= "!isAuthenticated()" class="nav-item col-md-4">
                     <a class="nav-link text-primary active h5 text-stroke" th:href="@{/login}">Login</a>
                 </li>
-                <li th:if="${@loggedUser.isLogged}" class="nav-item col-md-4">
+                <li sec:authorize= "isAuthenticated()" class="nav-item col-md-4">
                     <a class="nav-link text-primary active h5 text-stroke" th:href="@{/shoppingBag}">Shopping Bag</a>
                 </li>
-                <li th:unless="${@loggedUser.isLogged}" class="nav-item col-md-4">
+                <li sec:authorize= "isAuthenticated()" class="nav-item col-md-4">
+                    <a class="nav-link text-primary active h5 text-stroke" th:href="@{/home}">HOME</a>
+                </li>
+                <li sec:authorize= "!isAuthenticated()" class="nav-item col-md-4">
                     <a class="nav-link text-primary active h5 text-stroke" th:href="@{/register}">Register</a>
                 </li>
+                <div  class="nav-item col-md-4">
+                    <a sec:authorize="hasRole('Admin')" class="nav-link text-primary active h5 text-stroke" th:href="@{/admin}">ADMIN ONLY </a>
+                </div>
+                </li>
 
-                <li th:if="${@loggedUser.isLogged}" class="nav-item col-md-4">
+                <li sec:authorize= "isAuthenticated()" class="nav-item col-md-4">
+                    <form th:method="post"
+                          th:action="@{/logout}">
+                        <input type="submit" class="nav-link text-primary active h5 text" value="Logout"/>
+                    </form>
 
-                        <a class="nav-link text-primary active h5 text-stroke" href="/logout">Logout</a>
 
                 </li>
             </ul>

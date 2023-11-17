@@ -2,10 +2,74 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/commons::head"></head>
-<body>
-<header th:replace="fragments/commons::nav"></header>
-<main>
+<style>
 
+    body {font-family: Arial, Helvetica, sans-serif;}
+    * {box-sizing: border-box;}
+    h3{
+text-align: left;
+padding-left: 380px;
+font-size: 100px;
+color: #04AA6D;
+}
+    input[type=text], select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-top: 6px;
+      margin-bottom: 16px;
+      resize: vertical;
+    }
+
+    input[type=submit] {
+      background-color: #04AA6D;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+     input[type=submit]:hover {
+      display: centered
+      background-color: #45a049;
+    }
+
+    .container {
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+</style>
+<body>
+
+<header th:replace="fragments/commons::nav"></header>
+
+
+<main>
+    <div class="d-flex justify-content-center">
+        <form th:action="@{/contacts}"
+              th:method="POST"
+              th:object="${contactFormAddDTO}">
+    <h3>Contact Form</h3>
+
+    <div class="container">
+        <form action="/action_page.php">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Username..">
+
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" placeholder="Email..">
+
+
+            <label for="text">Subject</label>
+            <textarea id="text" name="text" placeholder="Write something.." style="height:200px"></textarea>
+
+            <input type="submit" value="Submit" th:href="@{/thanks}">
+        </form>
+    </div>
 
 
 

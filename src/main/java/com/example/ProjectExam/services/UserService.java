@@ -1,12 +1,14 @@
 package com.example.ProjectExam.services;
 
-import com.example.ProjectExam.models.DTOs.LoginDTO;
+
 import com.example.ProjectExam.models.DTOs.RegisterDTO;
+import com.example.ProjectExam.models.entities.UserEntity;
+
+import java.util.Optional;
 
 public interface UserService {
     boolean register(RegisterDTO registerDTO);
 
-    boolean login(LoginDTO loginDTO);
 
-    void logout();
+    Optional<UserEntity> findByUsername(String username);
 }

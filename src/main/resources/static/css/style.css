@@ -12,7 +12,7 @@
 
 
 body {
-    background-image: url(/img/dibujo-5.png);
+    background-image: url(/images/bobiShop.png);
     background-position: center;
     background-attachment: fixed;
     background-size: cover;
@@ -40,6 +40,7 @@ footer {
     border: 1px solid #dee2e6;
     border-radius: .25rem;
     max-width: 100%;
+    border: 5px solid #555;
 }
 
 .bg-blur {
@@ -132,3 +133,8 @@ align-content: center;
   flex: 33.33%;
   padding: 5px;
 }
+.image-upload {
+        border: 5px solid #555;
+ }
+
+
