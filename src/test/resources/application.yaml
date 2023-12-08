@@ -1,0 +1,31 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: never
+  mvc:
+    hidden-method:
+      filter:
+        enabled: true
+
+projectExam:
+  default.admin.pass: 123
+  remember.me.key: 123
+
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+
+mail:
+  projectExam: "project@example.com"
+  host: localhost
+  port: 3333
+  username: project@example.com
+  password: 123
+
+fsutil behavior: set disablelastaccess 0
