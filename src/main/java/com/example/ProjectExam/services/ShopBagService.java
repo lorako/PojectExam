@@ -1,6 +1,6 @@
 package com.example.ProjectExam.services;
 
-import com.example.ProjectExam.models.DTOs.ShopBagDTO;
+import com.example.ProjectExam.models.DTOs.View.ShopBagDTO;
 
 import java.math.BigDecimal;
 import java.util.List;

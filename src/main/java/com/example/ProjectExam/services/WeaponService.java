@@ -1,8 +1,7 @@
 package com.example.ProjectExam.services;
 
-import com.example.ProjectExam.models.DTOs.AddWeaponDTO;
-import com.example.ProjectExam.models.DTOs.WeaponViewDTO;
-import com.example.ProjectExam.models.entities.WeaponEntity;
+import com.example.ProjectExam.models.DTOs.BindingModel.AddWeaponDTO;
+import com.example.ProjectExam.models.DTOs.View.WeaponViewDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

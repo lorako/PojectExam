@@ -6,11 +6,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Positive;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Table(name="users")
 @Entity
@@ -34,6 +32,8 @@ public class UserEntity extends BaseEntity{
     private String country;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ShopBagEntity> myShopBag = new ArrayList<>();
+
+
 
     public UserEntity() {
     }

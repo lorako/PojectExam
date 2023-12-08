@@ -1,19 +1,16 @@
 package com.example.ProjectExam.services.Impl;
 
-import com.example.ProjectExam.models.DTOs.ContactFormAddDTO;
-import com.example.ProjectExam.models.DTOs.ContactViewDTO;
+import com.example.ProjectExam.Exceptions.UserNotFoundException;
+import com.example.ProjectExam.models.DTOs.BindingModel.ContactFormAddDTO;
+import com.example.ProjectExam.models.DTOs.View.ContactViewDTO;
 import com.example.ProjectExam.models.entities.ContactFormEntity;
 import com.example.ProjectExam.models.entities.UserEntity;
 import com.example.ProjectExam.repositories.ContactRepository;
-import com.example.ProjectExam.repositories.UserRepository;
 import com.example.ProjectExam.services.ContactFormService;
 import com.example.ProjectExam.services.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-
-import static java.util.stream.Collectors.toList;
 
 @Service
 public class ContactServiceFormImpl implements ContactFormService {
@@ -26,19 +23,16 @@ public class ContactServiceFormImpl implements ContactFormService {
     }
 
     @Override
-    public void safeForm(ContactFormAddDTO contactFormAddDTO) {
+    public boolean safeForm(ContactFormAddDTO contactFormAddDTO) {
 
         String username= contactFormAddDTO.getUsername();
 
-        Optional<UserEntity> user=userService.findByUsername(username);
+        UserEntity user= userService.findByUsername(username).orElseThrow(()->new UserNotFoundException("Not found user!"));
 
-        if(user.isEmpty()){
-            return;
-        }
 
-        String email =user.get().getEmail();
+        String email =user.getEmail();
         if(!email.equals(contactFormAddDTO.getEmail())){
-            return;
+            return false;
         }
 
         ContactFormEntity contact=new ContactFormEntity();
@@ -47,6 +41,7 @@ public class ContactServiceFormImpl implements ContactFormService {
         contact.setText(contactFormAddDTO.getText());
 
         contactRepository.save(contact);
+        return true;
     }
 
     @Override
@@ -57,5 +52,11 @@ public class ContactServiceFormImpl implements ContactFormService {
                .stream()
                .map(ContactViewDTO::new).toList();
 
+
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        contactRepository.deleteById(id);
     }
 }

@@ -1,14 +1,12 @@
 package com.example.ProjectExam.controllers;
 
-import com.example.ProjectExam.models.DTOs.AddWeaponDTO;
-import com.example.ProjectExam.models.DTOs.WeaponViewDTO;
-import com.example.ProjectExam.models.entities.WeaponEntity;
+import com.example.ProjectExam.models.DTOs.BindingModel.AddWeaponDTO;
+import com.example.ProjectExam.models.DTOs.View.WeaponViewDTO;
 import com.example.ProjectExam.services.WeaponService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;

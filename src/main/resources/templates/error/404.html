@@ -1,13 +1,17 @@
-<!DOCTYPE html>
+!<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/commons::head"></head>
 <body>
 <header th:replace="fragments/commons::nav"></header>
-<main class="container bg-blur rounded mt-1 mb-4">
+<main>
+    <div class="container bg-blur rounded mt-1 mb-4">
     <div>
 
-        <a class="nav-link text-primary active h5 text-stroke" th:text="' THANK YOU FOR YOUR PURCHASE '">Home</a>
+        <a class="nav-link text-primary active h5 text-stroke" th:text="' SORRY, WE CAN NOT FIND WHAT ARE YOU LOOKING FOR '">Home</a>
+
+        <img th:src="@{/images/cantfind.jpg}" alt="cantfind">
+    </div>
     </div>
 
 

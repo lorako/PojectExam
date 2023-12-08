@@ -15,7 +15,8 @@ public class BaseEntity {
         return id;
     }
 
-    public void setId(long id) {
+    public Long setId(long id) {
         this.id = id;
+        return null;
     }
 }

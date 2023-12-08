@@ -1,4 +1,4 @@
-package com.example.ProjectExam.models.DTOs;
+package com.example.ProjectExam.models.DTOs.View;
 
 import com.example.ProjectExam.models.entities.ArtistEntity;
 import com.example.ProjectExam.models.entities.HeroEntity;
@@ -97,6 +97,7 @@ public class HeroViewDTO {
     }
 
     public void setLikes(int likes) {
+
         this.likes = likes;
     }
 

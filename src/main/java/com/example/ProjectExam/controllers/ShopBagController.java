@@ -1,7 +1,7 @@
 package com.example.ProjectExam.controllers;
 
 
-import com.example.ProjectExam.models.DTOs.ShopBagDTO;
+import com.example.ProjectExam.models.DTOs.View.ShopBagDTO;
 import com.example.ProjectExam.services.ShopBagService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +29,7 @@ public class ShopBagController {
 
 
         List<ShopBagDTO> all = shopBagService.getAll(username);
-        final BigDecimal total1 = this.shopBagService.total(username);
+        BigDecimal total1 = this.shopBagService.total(username);
 
         return new ModelAndView("shoppingBag","all",all)
                .addObject("totalPrice", this.shopBagService.total(username))

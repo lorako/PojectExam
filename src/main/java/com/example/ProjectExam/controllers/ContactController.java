@@ -1,6 +1,6 @@
 package com.example.ProjectExam.controllers;
 
-import com.example.ProjectExam.models.DTOs.ContactFormAddDTO;
+import com.example.ProjectExam.models.DTOs.BindingModel.ContactFormAddDTO;
 import com.example.ProjectExam.services.ContactFormService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,16 +21,16 @@ public class ContactController {
 
 
     @GetMapping("/contacts")
-    public ModelAndView weapon(){
+    public ModelAndView contact(){
         return new ModelAndView("contacts");
     }
 
     @PostMapping("/contacts")
-    public ModelAndView submitForm(ContactFormAddDTO contactFormAddDTO, Principal principal){
+    public String submitForm(ContactFormAddDTO contactFormAddDTO, Principal principal){
 
         contactFormService.safeForm(contactFormAddDTO);
 
-        return new ModelAndView("redirect:/thanks");
+        return ("redirect:/thanks");
 
     }
     @GetMapping("/thanks")

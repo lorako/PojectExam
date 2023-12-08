@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HEROES</title>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+<button id="reloadHeroes">LOAD ALL HEROES</button>
+
+<table>
+    <thead>
+    <tr>
+        <th>HeroName</th>
+        <th>Creator</th>
+        <th>Created</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Likes</th>
+        <th>Power</th>
+        <th>Image</th>
+    </tr>
+    </thead>
+    <tbody id="hero-container"></tbody>
+</table>
+
+<form id="heroForm">
+    <h3>FORM</h3>
+    <label>HERONAME</label>
+    <input type="title" id="heroName" placeholder="heroName...">
+    <label>CREATOR</label>
+    <input type="title" id="creator" placeholder="creator...">
+    <label>CREATED</label>
+    <input type="title" id="created" placeholder="created...">
+    <label>PRICE</label>
+    <input type="number" id="price" placeholder="price...">
+    <label>DESCRIPTION</label>
+    <input type="title" id="description" placeholder="description..">
+    <label>LIKES</label>
+    <input type="number" id="likes" placeholder="likes..">
+    <label>POWER</label>
+    <input type="title" id="power" placeholder="power...">
+    <label>IMAGE</label>
+    <input type="file" id="image" placeholder="image...">
+
+    <button id="submit" type="submit">Submit</button>
+</form>
+
+<script src="app.js" crossorigin="use-credentials"></script>
+</body>
+</html>

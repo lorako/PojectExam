@@ -18,15 +18,14 @@ public class ArtistEntity extends BaseEntity{
     @Email
     private String email;
 
-    @OneToMany(fetch = FetchType.EAGER )
-    private List<HeroEntity> heroesList;
-    @OneToMany(fetch = FetchType.EAGER )
-    private List<WeaponEntity> weaponsList;
+    @Column
+    private int totalArt;
 
+    @Column
+    private int totalLikes;
 
     public ArtistEntity() {
-        heroesList=new ArrayList<>();
-        weaponsList=new ArrayList<>();
+
 
     }
 
@@ -46,23 +45,20 @@ public class ArtistEntity extends BaseEntity{
         this.email = email;
     }
 
-
-
-    public List<HeroEntity> getHeroesList() {
-        return heroesList;
+    public int getTotalArt() {
+        return totalArt;
     }
 
-    public void setHeroesList(List<HeroEntity> heroesList) {
-        this.heroesList = heroesList;
+    public void setTotalArt(int totalArt) {
+        this.totalArt = totalArt;
     }
 
-    public List<WeaponEntity> getWeaponsList() {
-        return weaponsList;
+    public int getTotalLikes() {
+        return totalLikes;
     }
 
-    public void setWeaponsList(List<WeaponEntity> weaponsList) {
-        this.weaponsList = weaponsList;
+    public void setTotalLikes(int totalLikes) {
+
+        this.totalLikes = totalLikes;
     }
-
-
 }

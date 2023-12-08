@@ -3,10 +3,6 @@ package com.example.ProjectExam.models.entities;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 @Entity
 @Table(name="contact_forms")
 public class ContactFormEntity extends BaseEntity {
@@ -15,7 +11,7 @@ public class ContactFormEntity extends BaseEntity {
 
     @Column(nullable = false)
     private String email;
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(nullable = false, columnDefinition = "varchar(255)")
     private String text;
 
 

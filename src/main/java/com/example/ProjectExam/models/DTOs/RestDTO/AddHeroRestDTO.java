@@ -117,4 +117,5 @@ public class AddHeroRestDTO {
     public void setCreator(ArtistEntity creator) {
         this.creator = creator;
     }
+
 }

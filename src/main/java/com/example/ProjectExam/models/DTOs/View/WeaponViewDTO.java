@@ -1,13 +1,7 @@
-package com.example.ProjectExam.models.DTOs;
+package com.example.ProjectExam.models.DTOs.View;
 
 import com.example.ProjectExam.models.entities.ArtistEntity;
 import com.example.ProjectExam.models.entities.WeaponEntity;
-import com.example.ProjectExam.models.enums.PowerEnum;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.validation.constraints.*;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,7 +9,7 @@ import java.time.LocalDate;
 public class WeaponViewDTO {
     private Long id;
 
-    private String heroName;
+    private String weaponName;
     private String imgUrl;
 
 
@@ -25,7 +19,7 @@ public class WeaponViewDTO {
 
     public WeaponViewDTO(WeaponEntity weapon) {
         this.id = weapon.getId();
-        this.heroName = weapon.getWeaponName();
+        this.weaponName = weapon.getWeaponName();
         this.imgUrl = weapon.getImgUrl();
         this.price = weapon.getPrice();
         this.creator = weapon.getCreator();
@@ -42,13 +36,16 @@ public class WeaponViewDTO {
         this.id = id;
     }
 
-    public String getHeroName() {
-        return heroName;
+
+    public String getWeaponName() {
+        return weaponName;
     }
 
-    public void setHeroName(String heroName) {
-        this.heroName = heroName;
+    public void setWeaponName(String weaponName) {
+        this.weaponName = weaponName;
     }
+
+
 
     public String getImgUrl() {
         return imgUrl;

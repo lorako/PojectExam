@@ -1,7 +1,9 @@
 package com.example.ProjectExam.services.Impl;
 
-import com.example.ProjectExam.models.DTOs.AddWeaponDTO;
-import com.example.ProjectExam.models.DTOs.WeaponViewDTO;
+import com.example.ProjectExam.Exceptions.ObjectNotFoundException;
+import com.example.ProjectExam.Exceptions.UserNotFoundException;
+import com.example.ProjectExam.models.DTOs.BindingModel.AddWeaponDTO;
+import com.example.ProjectExam.models.DTOs.View.WeaponViewDTO;
 import com.example.ProjectExam.models.entities.*;
 import com.example.ProjectExam.repositories.ArtistRepository;
 import com.example.ProjectExam.repositories.ShopBagRepository;
@@ -20,14 +22,13 @@ import java.util.stream.Collectors;
 public class WeaponServiceImpl implements WeaponService {
 
     private final WeaponRepository weaponRepository;
-
     private final ShopBagRepository shopBagRepository;
-
     private final UserRepository userRepository;
     private final ArtistRepository artistRepository;
     private final ImageCloudService imageCloudService;
 
-    public WeaponServiceImpl(WeaponRepository weaponRepository, ShopBagRepository shopBagRepository, UserRepository userRepository, ArtistRepository artistRepository, ImageCloudService imageCloudService) {
+    public WeaponServiceImpl(WeaponRepository weaponRepository, ShopBagRepository shopBagRepository,
+                             UserRepository userRepository, ArtistRepository artistRepository, ImageCloudService imageCloudService) {
         this.weaponRepository = weaponRepository;
         this.shopBagRepository = shopBagRepository;
         this.userRepository = userRepository;
@@ -35,71 +36,48 @@ public class WeaponServiceImpl implements WeaponService {
         this.imageCloudService = imageCloudService;
     }
 
-
-
     @Override
-    public void addWeapon(AddWeaponDTO addWeaponDTO, String username, MultipartFile imageFile) {
-
+    public void addWeapon(AddWeaponDTO addWeaponDTO,
+                          String username, MultipartFile imageFile) {
         Optional<WeaponEntity> weaponN = weaponRepository.findByWeaponName(addWeaponDTO.getWeaponName());
 
-        if(weaponN.isPresent()){
-            return;
-        }else{
-        Optional<ArtistEntity> artist=artistRepository.findByUsername(username);
-
+        ArtistEntity artist=artistRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("This user does not exist!"));
+       if(weaponN.isEmpty()){
         WeaponEntity weapon=new WeaponEntity();
         weapon.setWeaponName(addWeaponDTO.getWeaponName());
         weapon.setPrice(addWeaponDTO.getPrice());
-        weapon.setCreator(artist.get());
-
+        weapon.setCreator(artist);
         String pictureUrl=imageCloudService.saveImage(imageFile);
         weapon.setImgUrl(pictureUrl);
-
-
         weaponRepository.save(weapon);
-    }}
-
+           int totalArt = artist.getTotalArt();
+           totalArt+=1;
+           artist.setTotalArt(totalArt);
+           artistRepository.save(artist);
+     }else{return;}}
     @Override
-    public List<WeaponViewDTO> getAll() {
+    public List<WeaponViewDTO> getAll()
+    {
         return weaponRepository.findAll()
                 .stream()
                 .map(WeaponViewDTO::new)
-                .collect(Collectors.toList());
-    }
-
+                .collect(Collectors.toList());}
     @Override
     public void buyWeapon(Long id, String username) {
-
-
-
-        Optional<UserEntity> user= userRepository.findByUsername(username);
-
-
-        List<ShopBagEntity> myBoughtCollection = user.get().getMyShopBag();
-
-        WeaponEntity weapon = weaponRepository.findById(id).orElse(null);
-
-
-
-        if( weapon != null) {
+        UserEntity user= userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("This user does not exist!"));
+        List<ShopBagEntity> myBoughtCollection = user.getMyShopBag();
+        WeaponEntity weapon = weaponRepository.findById(id)
+                .orElseThrow(()->new ObjectNotFoundException("We can not find this object"));
 
             ShopBagEntity item = new ShopBagEntity();
             item.setImgUrl(weapon.getImgUrl());
             item.setItemName(weapon.getWeaponName());
             item.setPrice(weapon.getPrice());
-            item.setBuyer(user.get());
+            item.setBuyer(user);
             shopBagRepository.save(item);
-
             myBoughtCollection.add(item);
-
-            userRepository.save(user.get());
-
+            userRepository.save(user);
             Long wId = weapon.getId();
-
-
-            weaponRepository.deleteById(wId);
-
-        }
-
-    }
-}
+            weaponRepository.deleteById(wId);}}

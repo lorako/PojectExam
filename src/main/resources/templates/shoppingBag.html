@@ -6,7 +6,7 @@
 <header th:replace="fragments/commons::nav"></header>
 
 
-<main class="p-5 align-content-center bg-blur my-main">
+<main class="container bg-blur rounded mt-1 mb-4">
         <dir class="container my-main">
             <h3 class="bg-blur text-dark  mb-0 mt-2">Shopping Bag</h3>
         </dir>
@@ -23,18 +23,18 @@
                        </div>
                      <p class="card-text border-bottom" th:text="'Name: ' + ${a.getItemName()}"></p>
 
-                     <p class="card-text border-bottom" th:text="'Price: ' + ${a.price}"></p>
+                     <p class="card-text border-bottom" th:text="'Price: $' + ${a.price}"></p>
 
                     </div>
 
                </span>
                      <div>
                     <div class="btn-group">
-                    <a type="button" class="btn btn-sm btn-outline-secondary" th:text="'Total price: ' + ${totalPrice}"></a>
+                    <a type="button" class="btn btn-sm btn-outline-secondary text-dark" th:text="'Total price: $' + ${totalPrice}"></a>
                     </div>
                      <small class="text-muted">If you buy 3 items you get 20% discount!</small>
                      <div class="btn-group">
-                    <a type="button" class="btn btn-sm btn-outline-secondary text dark" th:text="'Discount price: ' + ${discountPrice}"></a>
+                    <a type="button" class="btn btn-sm btn-outline-secondary text dark" th:text="'Discount price: $' + ${discountPrice}"></a>
                     </div>
 
                      <a class="nav-link text-primary active h5 text-Bold" th:href="@{/shoppingBag/pay}">Pay</a>

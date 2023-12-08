@@ -1,35 +1,22 @@
-package com.example.ProjectExam.models.DTOs;
+package com.example.ProjectExam.models.DTOs.BindingModel;
 
-import com.example.ProjectExam.models.entities.ContactFormEntity;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public class ContactViewDTO {
-
-    private Long id;
-
+public class ContactFormAddDTO {
+    @Size(min=3, max=15)
+    @NotEmpty(message = "Name must be between 3 and 15 characters!")
     private String username;
 
-
+    @Email
     private String email;
-
+    @Size(min=3)
+    @NotNull(message = "Description must be min 3 characters!")
     private String text;
 
-    public ContactViewDTO(ContactFormEntity contactForm) {
-        this.username = contactForm.getUsername();
-        this.id= contactForm.getId();
-        this.email = contactForm.getEmail();
-        this.text = contactForm.getText();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public ContactFormAddDTO() {
     }
 
     public String getUsername() {

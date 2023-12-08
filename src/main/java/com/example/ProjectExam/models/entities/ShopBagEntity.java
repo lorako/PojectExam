@@ -19,7 +19,7 @@ public class ShopBagEntity extends BaseEntity {
     @Positive
     @Column()
     private BigDecimal price;
-@ManyToOne
+    @ManyToOne
     private UserEntity buyer;
 
     public String getItemName() {

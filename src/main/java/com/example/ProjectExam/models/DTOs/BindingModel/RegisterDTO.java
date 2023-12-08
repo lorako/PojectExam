@@ -1,4 +1,4 @@
-package com.example.ProjectExam.models.DTOs;
+package com.example.ProjectExam.models.DTOs.BindingModel;
 
 import jakarta.validation.constraints.*;
 
@@ -27,8 +27,9 @@ public class RegisterDTO {
         return role;
     }
 
-    public void setRole(String role) {
+    public String setRole(String role) {
         this.role = role;
+        return role;
     }
 
     public String getConfirmPassword() {

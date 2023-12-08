@@ -9,7 +9,7 @@ public class PowerEntity extends BaseEntity{
 
     @Enumerated(value=EnumType.STRING)
     private PowerEnum name;
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "varchar(255)")
     private String description;
 
     public String getDescription() {

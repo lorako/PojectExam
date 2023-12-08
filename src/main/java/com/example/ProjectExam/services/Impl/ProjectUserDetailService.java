@@ -1,16 +1,13 @@
 package com.example.ProjectExam.services.Impl;
 
 import com.example.ProjectExam.models.entities.UserEntity;
-import com.example.ProjectExam.models.enums.RoleEnum;
 import com.example.ProjectExam.repositories.UserRepository;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import java.util.Optional;
 
 public class ProjectUserDetailService implements UserDetailsService {
 
@@ -36,6 +33,8 @@ public class ProjectUserDetailService implements UserDetailsService {
                 .authorities(new SimpleGrantedAuthority( "ROLE_" + userEntity.getRole()))
                 .build();
     }
+
+
 
 
 }

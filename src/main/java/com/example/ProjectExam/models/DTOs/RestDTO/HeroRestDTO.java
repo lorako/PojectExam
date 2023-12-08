@@ -106,4 +106,5 @@ public class HeroRestDTO {
     public void setCreator(String creator) {
         this.creator = creator;
     }
+
 }

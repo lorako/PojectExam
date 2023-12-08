@@ -31,8 +31,6 @@ public class HeroEntity extends BaseEntity  {
 
    @Column
     private int likes;
-
-
    @Enumerated(EnumType.STRING)
     private PowerEnum power;
     @ManyToOne

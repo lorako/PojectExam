@@ -4,7 +4,7 @@
 <head th:replace="fragments/commons::head"></head>
 <body>
 <header th:replace="fragments/commons::nav"></header>
-<main class="p-5 align-content-center bg-blur my-register-div my-main">
+<main class="container bg-blur rounded mt-1 mb-4">
 
     <h1 class="text border-bottom">Register</h1>
     <div class="d-flex justify-content-center ">
@@ -102,7 +102,6 @@
                             id="role" class="custom-select">
                         <option value="" selected>Select role</option>
                         <option value="User" selected>User</option>
-                        <option value="Admin" selected>Admin</option>
                         <option value="Artist" selected>Artist</option>
                     </select>
                     <small th:if="${#fields.hasErrors('role')}"

@@ -1,7 +1,7 @@
 package com.example.ProjectExam.controllers;
 
 
-import com.example.ProjectExam.models.DTOs.RegisterDTO;
+import com.example.ProjectExam.models.DTOs.BindingModel.RegisterDTO;
 import com.example.ProjectExam.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -35,6 +35,7 @@ public class RegisterController {
         if (bindingResult.hasErrors()) {
             return new ModelAndView("register");
         }
+
         boolean hasSuccess = userService.register(registerDTO);
         if (!hasSuccess) {
             ModelAndView modelAndView = new ModelAndView("register");

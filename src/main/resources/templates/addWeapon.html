@@ -5,7 +5,7 @@
 <head th:replace="fragments/commons::head"></head>
 <body>
 <header th:replace="fragments/commons::nav"></header>
-<main class="p-5 bg-blur text-center my-main">
+<main class="container bg-blur rounded mt-1 mb-4">
     <h1 class="text border-bottom">ADD WEAPON</h1>
     <div class="d-flex justify-content-center">
         <form th:action="@{/weapons/add}"
@@ -37,14 +37,14 @@
             </div>
             <div class="form-row m-5">
                 <div class="col">
-                    <label for="price">Price</label>
+                    <label for="price">Price: $</label>
                     <input th:field="*{price}"
                            th:errorclass="bg-danger"
                            id="price" type="number" class="form-control" placeholder="Price">
                     <small th:if="${#fields.hasErrors('price')}"
                            th:errors="*{price}" id="priceError" class="form-text bg-danger rounded">Price must be positive</small>
                 </div>
-
+            </div>
             <div class="d-flex justify-content-center mt-4">
                 <button class="btn btn-primary btn-block w-50" type="submit">ADD WEAPON</button>
             </div>

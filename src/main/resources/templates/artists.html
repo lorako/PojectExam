@@ -4,10 +4,22 @@
 <head th:replace="fragments/commons::head"></head>
 <body>
 <header th:replace="fragments/commons::nav"></header>
-<main>
+<main class="container bg-blur rounded mt-1 mb-4">
 
 
+     <span class="row-H">
+                <span th:each="a : ${allA}" th:object="${a}" >
+                  <div class="column-H">
 
+                      <p class="card-text border-bottom" th:text="'Name: ' + ${a.getUsername()}"></p>
+                      <p class="card-text border-bottom" th:text="'Country: ' + ${a.getCountry()}"></p>
+                      <p class="card-text border-bottom" th:text="'Age: ' + ${a.getAge()}"></p>
+                      <p class="card-text border-bottom" th:text="'Total item created: ' + ${a.getTotalArt()}"></p>
+                      <p class="card-text border-bottom" th:text="'Total Likes: '+ ${a.totalLikes}"></p>
+
+                  </div>
+               </span>
+     </span>
 
 </main>
 <footer th:replace="fragments/commons::footer"></footer>

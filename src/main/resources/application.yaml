@@ -7,6 +7,7 @@ spring:
     hibernate:
       ddl-auto: update
     open-in-view: 'false'
+
   servlet:
     multipart:
       max-file-size: 1MB
@@ -20,9 +21,9 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
     password: Qwer6786#
     username: root
-    url: jdbc:mysql://localhost:3306/bobiShop?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/heroShop?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
 
-logging:
+
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.orm.jdbc.bind: DEBUG
@@ -35,4 +36,13 @@ projectExam:
     default.admin.pass: ${DEFAULT_ADMIN_PASS:123}
     remember.me.key: ${REMEMBER_ME_KEY:123}
 
+
+
+error:
+    include-message: always
+    include-stacktrace: never
+
+cache:
+   cache.type: caffeine
+   cache.caffeine.spec: maximumSize=500,expireAfterAccess=24h
 

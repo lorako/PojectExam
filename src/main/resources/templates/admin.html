@@ -5,12 +5,13 @@
 <body>
 <header th:replace="fragments/commons::nav"></header>
 
-<main>
+<main class="container bg-blur rounded mt-1 mb-4">
 
     <div class="container my-main">
 
             <span class="display-block text-align:left">
-                <span th:each="a : ${all}" th:object="${a}" >
+                  <h2 class="text-dark border-bottom">JOB TO DO!!</h2>
+                 <span th:each="a : ${all}" th:object="${a}" >
                   <div class="column-H">
 
 
@@ -18,10 +19,11 @@
                      <h3 class="card-text border-bottom" th:text="'Message: ' + ${a.getText()}"></h3>
                     </div>
                     <div class="btn-group">
-                  <a type="button" class="btn btn-sm btn-outline-secondary" th:href="@{/contacts/{id}(id = ${a.getId()})}">DONE!</a>
+                      <a type="button" class="btn btn-sm btn-outline-secondary" th:href="@{/admin/delete/{id}(id = ${a.getId()})}">DONE!</a>
                     </div>
 
-               </span>
+
+                </span>
 
               <div>
 

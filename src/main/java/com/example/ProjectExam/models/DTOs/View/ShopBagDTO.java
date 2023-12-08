@@ -1,4 +1,4 @@
-package com.example.ProjectExam.models.DTOs;
+package com.example.ProjectExam.models.DTOs.View;
 
 import com.example.ProjectExam.models.entities.ShopBagEntity;
 
