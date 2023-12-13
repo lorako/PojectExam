@@ -1,12 +1,10 @@
 
 let reloadHeroesButton = document.getElementById('reloadHeroes');
-let submitButton = document.getElementById('submit');
+let clearButton=document.getElementById("clear")
 
 reloadHeroesButton.addEventListener('click', reloadHeroes);
-submitButton.addEventListener('click', addHeroRest);
 
-
-
+clearButton.addEventListener('click', clearFun);
 
 function reloadHeroes() {
   let heroContainer = document.getElementById('hero-container');
@@ -42,12 +40,6 @@ function reloadHeroes() {
       image.src = hero.imgUrl;
       imageCol.appendChild(image);
 
-      let deleteBtn = document.createElement('button');
-      deleteBtn.innerHTML = 'DELETE';
-      deleteBtn.dataset.id = hero.id;
-      deleteBtn.addEventListener('click', deleteByIdRest);
-
-      actionCol.appendChild(deleteBtn);
 
       heroRow.appendChild(nameCol);
       heroRow.appendChild(creatorCol);
@@ -64,29 +56,8 @@ function reloadHeroes() {
     })
     .catch(error => console.error('Error:', error));
 }
-function addHeroRest(addHeroRestDTO) {
-  fetch('http://localhost:8080/api/heroes/add', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-User-Role': 'Artist'
-    },
-    body: JSON.stringify(addHeroRestDTO)
-  })
-    .then(response => {
-      reloadHeroes()
-    })
-    .catch(error => {
-      console.error('Error:', error)
-    });
-}
-function deleteByIdRest(event) {
-  let id = event.target.dataset.id;
 
-
-  fetch("http://localhost:8080/api/heroes/delete/" + id, {
-    method: 'DELETE'
-  })
-    .then(_ => reloadHeroes())
-    .catch(error => console.error('Error:', error));
+function clearFun() {
+  let heroContainer = document.getElementById('hero-container');
+  heroContainer.innerHTML = '';
 }
